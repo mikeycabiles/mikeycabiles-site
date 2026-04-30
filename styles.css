@@ -2329,3 +2329,146 @@ body {
     animation: none;
   }
 }
+
+/* Final QA pass: tighten overflow, contrast, and small editorial labels. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+.hero-grid {
+  grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr);
+}
+
+.hero-grid > *,
+.hero-media-wrap,
+.hero-portrait {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.hero-media-wrap {
+  overflow: clip;
+}
+
+.hero-media-wrap::before {
+  inset: 9% 10px auto auto;
+  width: calc(64% - 20px);
+}
+
+.nav-links::before {
+  inset: 0;
+}
+
+.cycle-word {
+  min-width: min(7.8ch, 100%);
+  max-width: 100%;
+}
+
+.cycle-word::before {
+  inset: 0;
+}
+
+.eyebrow,
+.eyebrow.muted,
+.archive-entry .date,
+.card .eyebrow,
+.channel-card .eyebrow,
+.memo-point .eyebrow,
+.footer-mini .eyebrow,
+.linkinbio-top .eyebrow,
+.invert .eyebrow,
+.about-block.invert .eyebrow {
+  color: var(--gold-action-strong) !important;
+  letter-spacing: 0.12em !important;
+}
+
+.about-block.invert,
+.panel,
+.card,
+.glass-panel,
+.cta-glass,
+.about-block,
+.alt-block,
+.channel-card,
+.consulting-panel,
+.memo-point,
+.video-tile,
+.social-tile,
+.mini-list {
+  color: var(--warm-ivory-soft);
+}
+
+.about-block.invert .receipt strong,
+.about-bento .receipt strong,
+.receipt strong {
+  color: var(--gold-action-strong);
+}
+
+.about-block.invert .receipt,
+.receipt {
+  border-left-color: rgba(241, 234, 219, 0.2);
+}
+
+.pillar {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.mobile-drawer {
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 260ms ease, visibility 0s linear 260ms;
+}
+
+.mobile-drawer.open {
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform 260ms ease;
+}
+
+@media (max-width: 1080px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .cycle-word {
+    min-width: 0;
+  }
+
+  .hero-grid h1 {
+    max-width: 100%;
+  }
+
+  .archive-entry h3,
+  .post-layout h1 {
+    overflow-wrap: normal;
+    text-wrap: balance;
+  }
+
+  .linkinbio-item,
+  button.linkinbio-item {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .link-title,
+  .link-sub {
+    overflow-wrap: anywhere;
+  }
+}
