@@ -1,0 +1,41 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Callouts | Mikey Cabiles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="home">
+    <div data-component="nav"></div>
+    <main>
+      <section class="callout-board reveal">
+        <h1 style="font-size:clamp(2rem,4vw,3.6rem);">Core Components</h1>
+        <article class="callout-card">
+          <p class="callout-title">01 · Sticky Primary Nav</p>
+          <p style="margin-top:8px;">Left-aligned MC monogram and wordmark, center navigation, and outlined Bright Rose Contact action. Mobile swaps to a full-screen drawer with oversized typography.</p>
+        </article>
+        <article class="callout-card">
+          <p class="callout-title">02 · Contact Modal</p>
+          <p style="margin-top:8px;">Accessible modal triggered from nav, footer, and links page. Two action cards: Text and Email. Desktop offers copy affordance. Mobile routes directly to sms/mail intents.</p>
+          <div class="btn-row" style="margin-top:14px;">
+            <a class="btn btn-ghost" href="contact-trigger.html">View Trigger State</a>
+            <a class="btn btn-primary" href="contact-open.html">View Open State</a>
+          </div>
+        </article>
+        <article class="callout-card">
+          <p class="callout-title">03 · Footer System</p>
+          <p style="margin-top:8px;">Three-column footer with brand block, sitemap, mini newsletter field, and social tokens. Keeps newsletter capture accessible at every meaningful scroll stop.</p>
+        </article>
+      </section>
+    </main>
+    <div data-component="footer"></div>
+    <div data-component="modal"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
