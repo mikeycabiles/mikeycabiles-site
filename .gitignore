@@ -2,6 +2,8 @@ mockups/
 research/
 node_modules/
 *.log
+.gh-token.txt
+.env
+.env.*
 .DS_Store
 Thumbs.db
-
