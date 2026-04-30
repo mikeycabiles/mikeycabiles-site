@@ -1,23 +1,46 @@
-﻿(function () {
+(function () {
+  document.documentElement.classList.add("js-enabled");
   const page = document.body.dataset.page || "home";
   const showModal = document.body.dataset.modalOpen === "true";
   const showDrawer = document.body.dataset.drawerOpen === "true";
+  const routes = {
+    home: "/",
+    about: "/about/",
+    blog: "/blog/",
+    post: "/blog/post/",
+    resources: "/resources/",
+    memos: "/memos/",
+    links: "/links/"
+  };
+  const cleanPath = {
+    "/index.html": routes.home,
+    "/about.html": routes.about,
+    "/blog.html": routes.blog,
+    "/blog-post.html": routes.post,
+    "/resources.html": routes.resources,
+    "/memos.html": routes.memos,
+    "/links.html": routes.links
+  };
+
+  if (window.location.protocol !== "file:" && cleanPath[window.location.pathname]) {
+    window.history.replaceState(null, "", cleanPath[window.location.pathname]);
+  }
 
   const nav = `
     <header class="site-header">
       <div class="container nav-row">
-        <a class="brand" href="index.html" aria-label="Mikey Cabiles home">
+        <a class="brand" href="${routes.home}" aria-label="Mikey Cabiles home">
           <span class="brand-mark">MC</span>
           <span class="brand-name">Mikey Cabiles</span>
         </a>
         <nav class="nav-links" aria-label="Primary">
-          <a href="about.html" data-nav="about">About</a>
-          <a href="blog.html" data-nav="blog">Blog</a>
-          <a href="resources.html" data-nav="resources">Resources</a>
-          <a href="memos.html" data-nav="memos">Memos</a>
+          <a href="${routes.about}" data-nav="about">About</a>
+          <a href="${routes.blog}" data-nav="blog">Blog</a>
+          <a href="${routes.resources}" data-nav="resources">Resources</a>
+          <a href="${routes.memos}" data-nav="memos">Memos</a>
         </nav>
         <div class="nav-right">
-          <a class="btn btn-outline-rose" href="memos.html">Join Mikey's Memos</a>
+          <a class="btn btn-outline-rose" href="${routes.memos}">Join Mikey's Memos</a>
           <button class="menu-toggle" aria-label="Open menu" data-open-drawer>
             <span></span><span></span><span></span>
           </button>
@@ -31,14 +54,14 @@
       </div>
       <p class="drawer-note">AI-led personal marketing, documented in public.</p>
       <div class="drawer-links">
-        <a href="about.html">About</a>
-        <a href="blog.html">Blog</a>
-        <a href="resources.html">Resources</a>
-        <a href="memos.html">Memos</a>
-        <a href="links.html">Links</a>
+        <a href="${routes.about}">About</a>
+        <a href="${routes.blog}">Blog</a>
+        <a href="${routes.resources}">Resources</a>
+        <a href="${routes.memos}">Memos</a>
+        <a href="${routes.links}">Links</a>
         <button data-open-contact>Contact</button>
       </div>
-      <a class="btn btn-primary drawer-cta" href="memos.html">Join Mikey's Memos</a>
+      <a class="btn btn-primary drawer-cta" href="${routes.memos}">Join Mikey's Memos</a>
     </aside>
   `;
 
@@ -49,18 +72,18 @@
           <h4>Mikey Cabiles</h4>
           <p class="tagline">Always grateful, never content.</p>
           <div class="social-row" aria-label="Social links">
-            <a class="social-dot" href="#" aria-label="YouTube">YT</a>
-            <a class="social-dot" href="#" aria-label="Instagram">IG</a>
+            <a class="social-dot" href="https://www.youtube.com/@mikeycabiles" aria-label="YouTube vlog channel">YT</a>
+            <a class="social-dot" href="https://www.instagram.com/mikeycabiles" aria-label="Instagram">IG</a>
             <a class="social-dot" href="#" aria-label="TikTok">TT</a>
-            <a class="social-dot" href="#" aria-label="Skool">SK</a>
+            <a class="social-dot" href="https://www.youtube.com/@mikeycabilesbuilds" aria-label="YouTube builds channel">AI</a>
           </div>
         </div>
         <div class="footer-links">
-          <a href="about.html">About</a>
-          <a href="blog.html">Blog</a>
-          <a href="resources.html">Resources</a>
-          <a href="memos.html">Memos</a>
-          <a href="links.html">Links</a>
+          <a href="${routes.about}">About</a>
+          <a href="${routes.blog}">Blog</a>
+          <a href="${routes.resources}">Resources</a>
+          <a href="${routes.memos}">Memos</a>
+          <a href="${routes.links}">Links</a>
           <a href="#" data-open-contact>Contact</a>
         </div>
         <div class="footer-mini">
@@ -182,8 +205,23 @@
     });
   });
 
+  const cycleWord = document.querySelector("[data-cycle-word]");
+  if (cycleWord) {
+    const words = ["agentic AI", "ChatGPT", "Claude Code", "AI agents", "automation"];
+    let wordIndex = 0;
+
+    setInterval(() => {
+      cycleWord.classList.add("is-swapping");
+      window.setTimeout(() => {
+        wordIndex = (wordIndex + 1) % words.length;
+        cycleWord.textContent = words[wordIndex];
+        cycleWord.classList.remove("is-swapping");
+      }, 520);
+    }, 2600);
+  }
+
   const revealNodes = document.querySelectorAll('.reveal');
-  if (window.location.protocol === 'file:') {
+  if (window.location.protocol === 'file:' || !('IntersectionObserver' in window)) {
     revealNodes.forEach((node) => node.classList.add('visible'));
   } else {
     const observer = new IntersectionObserver(

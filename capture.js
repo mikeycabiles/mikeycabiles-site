@@ -4,6 +4,7 @@ const { chromium } = require('playwright');
 
 const root = process.cwd();
 const outDir = path.join(root, 'mockups');
+const baseUrl = process.env.CAPTURE_BASE_URL || '';
 fs.mkdirSync(outDir, { recursive: true });
 
 const pages = [
@@ -51,8 +52,12 @@ const variants = [
     for (const pageFile of pages) {
       const page = await context.newPage();
       const fileUrl = `file:///${path.join(root, pageFile).replace(/\\/g, '/')}`;
-      await page.goto(fileUrl, { waitUntil: 'domcontentloaded' });
+      const pageUrl = baseUrl ? new URL(pageFile, baseUrl).toString() : fileUrl;
+      await page.goto(pageUrl, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(600);
+      await page.evaluate(() => {
+        document.querySelectorAll('.reveal').forEach((node) => node.classList.add('visible'));
+      });
       const name = pageFile.replace('.html', '');
       const outPath = path.join(outDir, `${name}-${variant.name}.png`);
       await page.screenshot({ path: outPath, fullPage: true });
